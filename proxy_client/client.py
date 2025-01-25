@@ -38,6 +38,13 @@ class ProxyServer:
             "https": f"http://{self.host}:{self.port}",
         }
 
+    def __enter__(self):
+        self.run()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.stop()
+
     def _construct_command(self) -> list[str]:
         """Construct the command to run the proxy.
 

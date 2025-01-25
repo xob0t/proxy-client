@@ -27,6 +27,15 @@ class ProxyTest(unittest.TestCase):
 
         hola_server.stop()
 
+    def test_context(self):
+        opera_server = ProxyManager.opera()
+        with opera_server:
+            try:
+                response = requests.get("https://api.ipify.org/", proxies=opera_server.proxies, timeout=10)
+                print("Opera Proxy IP:", response.text)
+            except Exception as e:
+                print("Error using Opera proxy:", e)
+
 
 if __name__ == "__main__":
     unittest.main()
